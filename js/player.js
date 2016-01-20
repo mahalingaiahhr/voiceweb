@@ -1,4 +1,4 @@
-var AppCommands = ["play","stop","previous","pause","next","home","news","feedback","audio","video"];
+var AppCommands = ["play","stop","previous","pause","next","home","game","feedback","audio","video","suggestion","up","down","left","right","start","submit"];
 window.voiceDuration = 250;
 var suggestionText = "";
 var audioPlayer = {
@@ -173,10 +173,15 @@ var audioPlayer = {
   },
   switchingTabs:function(cmd) {
 	  window.voiceDuration = 250;
+	  window.game_over = false;
 	   $(".toggle").hide();
 	   this.videoActions("pause");
 	  if(cmd === "audio"){
 	  $("#audioPanel").show();
+	  }
+	  else if(cmd === "home"){
+		 this.switchigToNonaudio();
+	    $("#homePanel").show();
 	  }
 	  else if(cmd === "video"){
 		 this.switchigToNonaudio();
@@ -188,6 +193,9 @@ var audioPlayer = {
 		$("#contactusPanel").show();
 	  }
 	  else if(cmd === "game" || cmd === "start"){
+		  if(cmd == "start" && !$("#myCanvas").is(":visible")){
+			  return;
+		  }
 		this.switchigToNonaudio();
 		$("#gamePanel").show();
 		create_snake();

@@ -5,8 +5,8 @@ var snakeLen = 4;
 var dir = "right";
 var food = "";
 var level = new Array();
-var total_height = 640;
-var total_width = 640;
+var total_height = 500;
+var total_width = 860;
 var lvl_width = 20;
 var lvl_height = 20;
 var speed = 16;
@@ -61,19 +61,23 @@ function animate()
 	if(game_over == false)
 	{
 		// clear
+		if($("#myCanvas").is(":visible")){
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		displayText("Score: " + (snakeLen - 4));
+		displayText((snakeLen - 4));
 		display();
 		requestAnimFrame(function()
 		{
 		  animate();
 		});
+		}else{
+			return;
+		}
 	}
 	else
 	{
 		speak("sorry you lost the game. you scrore is"+(snakeLen - 4));
 		snakeLen = 4;
-		displayText("Game Over!! say start to new game..");
+		displayText("sorry you lost the game");
 	}
 	//context.drawImage(aniblock, aniblock_x, aniblock_y); 
 
