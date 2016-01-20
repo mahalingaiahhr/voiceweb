@@ -48,6 +48,9 @@
       font-size: 20px;
       font-family: cursive;
      }
+     .well{
+      margin-right: 350px !important;
+     }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -75,11 +78,11 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class='active'><a onclick="getDetails(this)" href="#homePanel" class='hometab'>Home</a></li>
-        <li><a onclick="getDetails(this)" href="#mp3Panel">Audio</a></li>
-        <li><a onclick="getDetails(this)" href="#videoPanel">Video</a></li>
-       <li><a onclick="getDetails(this)" href="#newsPanel">Game</a></li>
-	     <li><a onclick="getDetails(this)" href="#contactusPanel">Feedback</a></li>
+        <li class='active'><a onclick="getDetails('home')" id="homeMenu" href="#homePanel" class='hometab'>Home</a></li>
+        <li><a onclick="getDetails('audio')"  id="audioMenu" href="#audioPanel">Audio</a></li>
+        <li><a onclick="getDetails('video')"  id="videoMenu" href="#videoPanel">Video</a></li>
+       <li><a onclick="getDetails('news')"   id="newsMenu" href="#newsPanel">Game</a></li>
+	     <li><a onclick="getDetails('contactus')"   id="contactusMenu"href="#contactusPanel">Feedback</a></li>
        <li style="color:#FFF;padding-top:15px;padding-left:100px;">You Spoke : <span class="l-command"></span></li>
       </ul>
 
@@ -94,7 +97,12 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav" id="testrun">
-      <div id="mp3SidePanel" class="sidetoggle">
+       <div id="homeSidePanel" class="sidetoggle">
+        <h4>ABOUT</h4>
+         <p style="text-align:left;">Bye Bye to Keyboard and mouse
+Welcome to new web voice power where you can play audio/video and play a game too just by speaking to your system. So why waiting start giving commands to your system.</p>
+      </div>
+      <div id="audioSidePanel" class="sidetoggle">
         <h4>Available commands</h4>
         <ul class='center'>
            <li> <b>Play</b> - Play the current song</li>
@@ -136,7 +144,7 @@
     </div>
     <div class="col-sm-8 text-left"> 
       <center><h1 class="head">Voice powered web application</h1>
-      <p class="mainHeading">You speak, I will respond</p></center>
+      
 	 
 	<!--   <p> Status : <span class="2-command"></span></p> -->
       <hr>
@@ -161,16 +169,17 @@
                   <!-- Form Name -->
                     <legend>Feedback</legend>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Rating</label>
+                        <label class="col-sm-2 control-label">Rating :</label>
                         <div class="col-sm-10">
                           <input id="feedback-rating" class="rating" data-min="0" data-max="5" data-step="0.1">
                         </div>
                     </div>
+                    <hr/>
                     <div class="form-group">
-                    <label class="col-sm-2 control-label">Suggestion</label>
+                    <label class="col-sm-2 control-label">Message :</label>
                       <div class="col-sm-10 inputGroupContainer">
                           <div class="input-group">
-                                <textarea class="form-control" name="comment" placeholder="Start speaking" ></textarea>
+                                <textarea style="width:370px;height:120px;" class="form-control" name="comment" placeholder="Start speaking" ></textarea>
                           </div>
                       </div>
                     </div>
@@ -218,9 +227,9 @@
 <script type="text/javascript">
 $('.toggle').hide();
  $(".sidetoggle").hide();
-
-function getDetails(dis) {
-  console.log(dis);
+getDetails('home');
+function getDetails(key) {
+  var dis = document.getElementById(key+"Menu");
   $(".toggle").hide();
     var toShow = $(dis).attr('href');
     $(toShow).show();

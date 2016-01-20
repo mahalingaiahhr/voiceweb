@@ -336,18 +336,23 @@ var audioPlayer = {
         break;
   	  case "audio":
   		this.switchingTabs("audio");
+      getDetails(cmd);
   		break;
   	  case "home":
   		this.switchingTabs("home");
+      getDetails(cmd);
   		break;
   	  case "video":
   		this.switchingTabs("video");
+      getDetails(cmd);
   		break;
   	  case "feedback":
   		this.switchingTabs("feedback");
+      getDetails(cmd);
   		break;
 	  case "game":
   		this.switchingTabs("game");
+      getDetails(cmd);
   		break;
 	  case "start":
   		this.switchingTabs("start");
