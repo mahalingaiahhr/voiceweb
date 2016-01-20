@@ -1,5 +1,5 @@
 var AppCommands = ["play","stop","previous","pause","next","home","game","feedback","audio","video","message","up","down","left","right","start","submit"];
-window.voiceDuration = 250;
+window.voiceDuration = 50;
 var suggestionText = "";
 var audioPlayer = {
   audioData: {
@@ -116,13 +116,14 @@ var audioPlayer = {
     }
   },
   pauseSong: function(audio, stopPlayback) {
+    if (audio.paused) {
+        return;
+      }
+      audio.pause();
 	  if(this.checkAudioOrVideo() == "video"){
 		  this.videoActions("pause");
 	  }else{
-			if (audio.paused) {
-			  return;
-			}
-			audio.pause();
+			
 			if (stopPlayback) {
 			  this.changeStatusCode("Stopped", true);
 			  audio.currentTime = 0;
@@ -175,18 +176,14 @@ var audioPlayer = {
     if (cmd !== "start"){
       getDetails(cmd);
     }
-	  window.voiceDuration = 250;
+	  window.voiceDuration = 50;
 	  window.game_over = true;
 	   this.videoActions("pause");
-	  if(cmd === "home"){
+	  if(cmd !== "audio"){
 		 this.switchigToNonaudio();
 	  }
-	  else if(cmd === "video"){
-		 this.switchigToNonaudio();
-	  }
-	  else if(cmd === "feedback"){
+	  if(cmd === "feedback"){
 		  window.voiceDuration = 500;
-		 this.switchigToNonaudio();
 	  }
 	  else if(cmd === "game" || cmd === "start"){
 		  /*if(cmd == "start" && !$("#myCanvas").is(":visible")){
@@ -310,6 +307,7 @@ var audioPlayer = {
       }
 	  if(cmd == "message"){
 		  $(".form-control").focus();
+      return;
 	  }
       if (suggestionSpecific) {
         this.suggestion(suggestionSpecific[1]);

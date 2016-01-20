@@ -13,7 +13,7 @@ $(function() {
         timeoutSet = false;
 
     speechRecognizer.onresult = function (evt) {
-      audioPlayer.toggleSpinner(true);
+      /*audioPlayer.toggleSpinner(true);
       results.push(evt.results);
       if (!timeoutSet) {
         setTimeout(function() {
@@ -42,7 +42,15 @@ $(function() {
         }, window.voiceDuration)
       }
 
-      timeoutSet = true;
+      timeoutSet = true;*/
+      if (event.results.length > 0) {
+          var result = event.results[event.results.length-1];
+          setTimeout(function(){
+            speechRecognizer.abort();
+         },50);
+         audioPlayer.processCommands(result[0].transcript.toLowerCase());
+      } 
+        
     }
     speechRecognizer.onend = function () {
       speechRecognizer.start();

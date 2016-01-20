@@ -219,9 +219,7 @@ $('.toggle').hide();
  $(".sidetoggle").hide();
 getDetails('home');
 function getDetails(key) {
-  console.log("Calling get Details...."+key);
   var dis = document.getElementById(key+"Menu");
-  console.log(dis);
   $('.nav.navbar-nav > li').removeClass('active');
     $(dis).parent().addClass('active');
   $(".toggle").hide();
