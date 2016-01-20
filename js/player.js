@@ -1,5 +1,6 @@
 var AppCommands = ["play","stop","previous","pause","next","home","news","feedback","audio","video"];
 window.voiceDuration = 250;
+var suggestionText = "";
 var audioPlayer = {
   audioData: {
     currentSong: -1,
@@ -182,7 +183,7 @@ var audioPlayer = {
 	    $("#videoPanel").show();
 	  }
 	  else if(cmd === "feedback"){
-		  window.voiceDuration=2000;
+		  window.voiceDuration = 250;
 		 this.switchigToNonaudio();
 		$("#contactusPanel").show();
 	  }
@@ -250,27 +251,11 @@ var audioPlayer = {
     }
   },
   rating : function(value){
-    switch (value) {
-      case "one":
-        value = "1";
-        break;
-      case 'two':
-        value = "2";
-        break;
-      case "three":
-        value = "3";
-        break;
-      case "four":
-        value = "4";
-        break;
-      case "five":
-        value = "5";
-        break;
-    }
     $('#feedback-rating').rating('update', value);
   },
   suggestion : function(value){
-    $('#contactusPanel textarea').val(value);
+	  suggestionText = suggestionText+" "+value;
+    $('#contactusPanel textarea').val(suggestionText);
   },
   resetRating : function(){
     if($("#contactusPanel").is(":visible")){
@@ -279,14 +264,16 @@ var audioPlayer = {
   },
   feedbackSubmit: function(){
     if($("#contactusPanel").is(":visible")){
+		var that = this;
       db.transaction(function (tx) {
         var ratingVal = $('#feedback-rating').val(),
             descriptionVal = $('#contactusPanel textarea').val();
             if(ratingVal){
               tx.executeSql('INSERT INTO feedback (rating, description) VALUES (?, ?)',[ratingVal,descriptionVal]);
-              $("#feedback-table tbody").append("<tr><td>"+ratingVal+"</td><td>"+descriptionVal+"</td></tr>");
+              $("#feedback-table tbody").prepend("<tr><td>"+ratingVal+"</td><td>"+descriptionVal+"</td></tr>");
             }
-            
+         $('#contactusPanel textarea').val("");
+		 that.resetRating();
            // msg = '<p>Log message created and row inserted.</p>';
            // document.querySelector('#status').innerHTML =  msg;
          });
@@ -294,18 +281,31 @@ var audioPlayer = {
   },
   processCommands: function(cmd) {
     this.changeLastCommand(cmd);
+	if($(".form-control").is(":focus")){
+		if(cmd === "submit"){
+			suggestionText = "";
+			$(".form-control").blur();
+		}else{
+			this.suggestion(cmd);
+			return;
+		}
+	}
     var playSpecific = cmd.match(/play\s*(.+)$/);
     if (playSpecific) {
       this.searchSpecificSong(playSpecific[1]);
       return;
     }
     if($("#contactusPanel").is(":visible")){
-      var ratingSpecific = cmd.match(/rating\s*(.+)$/),
+      //var ratingSpecific = cmd.match(/^\d*(.+)$/),
+	  var ratingSpecific = cmd.split(" "),
           suggestionSpecific = cmd.match(/suggestion\s*(.+)$/);
-      if (ratingSpecific) {
-        this.rating(ratingSpecific[1].toLowerCase());
+      if (ratingSpecific && (ratingSpecific[1] === "star")) {
+        this.rating(ratingSpecific[0]);
         return;
       }
+	  if(cmd == "suggestion"){
+		  $(".form-control").focus();
+	  }
       if (suggestionSpecific) {
         this.suggestion(suggestionSpecific[1]);
         return;
