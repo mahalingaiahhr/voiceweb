@@ -241,13 +241,14 @@ var audioPlayer = {
 
   // Speech API
   speak: function(text, scope) {
-    var message = new SpeechSynthesisUtterance(text.replace("-", " "));
+    /*var message = new SpeechSynthesisUtterance(text.replace("-", " "));
     message.rate = 1;
-    window.speechSynthesis.speak(message);
+    window.speechSynthesis.speak(message);*/
     if (scope) {
-      message.onend = function() {
-        scope.play();
-      }
+		scope.play();
+      /*message.onend = function() {
+        
+      }*/
     }
   },
   rating : function(value){
@@ -274,6 +275,7 @@ var audioPlayer = {
             }
          $('#contactusPanel textarea').val("");
 		 that.resetRating();
+		 speak("thanks for you feed back");
            // msg = '<p>Log message created and row inserted.</p>';
            // document.querySelector('#status').innerHTML =  msg;
          });

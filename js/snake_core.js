@@ -64,20 +64,31 @@ function animate()
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		displayText("Score: " + (snakeLen - 4));
 		display();
+		requestAnimFrame(function()
+		{
+		  animate();
+		});
 	}
 	else
 	{
-		displayText("You so Sux.. Game Over homie");
+		speak("sorry you lost the game. you scrore is"+(snakeLen - 4));
+		snakeLen = 4;
+		displayText("Game Over!! say start to new game..");
 	}
 	//context.drawImage(aniblock, aniblock_x, aniblock_y); 
 
 	// request new frame
-	requestAnimFrame(function()
-	{
-	  animate();
-	});
-} 
 
+} 
+function speak(text){
+	var message = new SpeechSynthesisUtterance(text.replace("-", " "));
+	message.lang = "en-IN";
+    message.rate = 1;
+    window.speechSynthesis.speak(message);
+	message.onend = function() {
+        window.speechSynthesis.cancel();
+      }
+}
 function displayText(what)
 {
 	context.font = "30px Arial";
