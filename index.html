@@ -17,6 +17,8 @@
       margin-bottom: 0;
       border-radius: 0;
     }
+
+    .nav .active a { background:#5bc0de!important } 
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 590px}
@@ -24,7 +26,7 @@
     /* Set gray background color and 100% height */
     .sidenav {
       padding-top: 20px;
-      background-color: #eedbc3;
+      background-color: #5bc0de;
       height: 100%;
     }
     
@@ -34,24 +36,19 @@
       color: white;
       padding: 15px;
     }
-    .head{
+
+  .head{
       font-size: 30px;
-      font-color:#5d5d5d;
+      color: #db7093;
+      font-family: cursive;
     }
-    #mp3Panel:active{
-      color: red;
-    }
-    
-    #contactusPanel .container {
-      width: 100%;
-    }
-    #contactusPanel .rating-md {
-      font-size: 2.13em;
-    }
-    #contactusPanel textarea{
-      width:300px;
-      height:200px;
+
+  .mainHeading{
+      color: #c3baf7;
+      font-size: 20px;
+      font-family: cursive;
      }
+    
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
@@ -60,6 +57,8 @@
       }
       .row.content {height:auto;} 
     }
+    .center { text-align: left; list-style-position:inside;margin-left:-25px;list-style-type: none;}
+    .rightsidepanel{list-style-type: none;text-align: left;line-height:50px;font-size: 14px;margin-left: -30px;}
   </style>
 </head>
 <body>
@@ -72,20 +71,21 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#"><img src="images/logo.jpg"  style="width:40px;height:35px;margin-top:-7px;"></a>
+       <a class="navbar-brand" href="#"><img src="images/new_logo.jpg"  style="width:67px;height:53px;position:relative;bottom:16px;left:-15px;"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a onclick="getDetails(this)" href="#">Home</a></li>
+        <li class='active'><a onclick="getDetails(this)" href="#homePanel" class='hometab'>Home</a></li>
         <li><a onclick="getDetails(this)" href="#mp3Panel">Audio</a></li>
         <li><a onclick="getDetails(this)" href="#videoPanel">Video</a></li>
        <li><a onclick="getDetails(this)" href="#newsPanel">Game</a></li>
-	   <li><a onclick="getDetails(this)" href="#contactusPanel">Feedback</a></li>
+	     <li><a onclick="getDetails(this)" href="#contactusPanel">Feedback</a></li>
+       <li style="color:#FFF;padding-top:15px;padding-left:100px;">You Spoke : <span class="l-command"></span></li>
       </ul>
-      <input type="text" name="names" autofocus placeholder="Search"style="margin-left:700px;margin-top:12px;border-radius:5px;">
-      <ul class="nav navbar-nav navbar-right">
+
+     <!--  <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+      </ul> -->
     </div>
     <div id="content1" class="toggle" style="display:none">show the stuff1</div> 
   </div>
@@ -94,18 +94,56 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav" id="testrun">
-    <i class="fa fa-volume-up"></i>
-      <p><a href="#">Open Audio</a></p>
-      <p><a href="#">Open Video</a></p>
-      <p><a href="http://www.gmail.com" target="_blank">Open E-Mail</a></p>
-      <p><a href="#"></a></p>
+      <div id="mp3SidePanel" class="sidetoggle">
+        <h4>Available commands</h4>
+        <ul class='center'>
+           <li> <b>Play</b> - Play the current song</li>
+           <li><b> Stop</b> - Stop the current song </li>
+           <li><b> Pause</b> - Pause the current song</li>
+           <li> <b>Next</b> - Play the next song</li>
+           <li> <b>Previous</b> - Plays the previous song</li>
+           <li><b>Play [song's name]</b> - Plays a song with a particular name, if found</li>
+        </ul>
+      </div>
+      <div id="videoSidePanel" class="sidetoggle">
+        <h4>Available commands</h4>
+        <ul class='center'>
+          <li><b>Play</b> - Plays the video</li>
+          <li><b> Stop</b> - Stops the video </li>
+          <li><b> Pause</b> - Pauses the video</li>
+        </ul>
+      </div>
+      <div id="newsSidePanel" class="sidetoggle">
+        <h4>Available commands</h4>
+          <ul class='center'>
+            <li><b>Start</b> - Starts the Game</li>
+            <li><b> Stop</b> - Stops the Game</li>
+            <li><b> Up</b> - Move up</li>
+            <li><b>Down</b> - Move down</li>
+            <li><b>Left</b> - Move left</li>
+            <li><b>Right</b> - Move right</li>
+        </ul>
+      </div>
+
+        <div id="contactusSidePanel" class="sidetoggle">
+        <h4>Available commands</h4>
+          <ul class='center'>
+            <li><b>no. star</b> - Eg: 4 star </li>
+            <li><b> Suggetion</b> - followed by message</li>
+        </ul>
+      </div>
+
     </div>
     <div class="col-sm-8 text-left"> 
-      <h1 class="head">VOICE WEB WELCOMES YOU</h1>
-      <p>This is a listening site...</p>
-	  <p>Last command: <span class="l-command"></span></p> 
-	  <p> Status : <span class="2-command"></span></p>
+      <center><h1 class="head">Voice powered web application</h1>
+      <p class="mainHeading">You speak, I will respond</p></center>
+	 
+	<!--   <p> Status : <span class="2-command"></span></p> -->
       <hr>
+      <div id="homePanel" class="toggle">
+       <center> <a><img src="images/home_image.png"  style=""></a></center>
+
+      </div>
       <div id="audioPanel" class="toggle"><h1>mp3Panel</h1></div>
       <div id="videoPanel" class="toggle">
 		<center>
@@ -164,16 +202,30 @@
       </div>
     </div>
     <div class="col-sm-2 sidenav">
+      <div id = 'rightsidecontent'>
+      <p style = 'font-size:16px;'><b>Navigational Commands</b></p>
+      <ul class='rightsidepanel'>
+        <li><b>Home</b> - Go to home page</li>
+        <li><b>Audio</b> - Go to Audio</li>
+        <li><b>Video</b> - Go to video</li>
+        <li><b>Game</b> - Go to game</li>
+        <li><b>Feedback</b> - Go to feedback</li>
+      </ul>
       </div>
+    </div>
   </div>
 </div>
 <script type="text/javascript">
 $('.toggle').hide();
+ $(".sidetoggle").hide();
+
 function getDetails(dis) {
   console.log(dis);
   $(".toggle").hide();
     var toShow = $(dis).attr('href');
     $(toShow).show();
+    $(".sidetoggle").hide();
+    $(toShow.replace("Panel", "SidePanel")).show();
   
 }
 </script>
@@ -199,6 +251,17 @@ function updateSuggestions(transaction, results){
     }
   }
 }
+
+$('.nav.navbar-nav > li').on('click', function(e) {
+    $('.nav.navbar-nav > li').removeClass('active');
+    $(this).addClass('active');
+});  
+
+  $( document ).ready(function() {
+        document.getElementById("homePanel").style.display = "block";
+    });
+
+
 </script>
 </body>
 </html>
