@@ -1,3 +1,6 @@
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
+
 window.addEventListener("keydown", moveSnake, false);
 var game_over = false;
 var snake = new Array(4);
@@ -61,23 +64,24 @@ function animate()
 	if(game_over == false)
 	{
 		// clear
-		if($("#myCanvas").is(":visible")){
+		//if($("#myCanvas").is(":visible")){
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		displayText((snakeLen - 4));
+		$("#gameScore").html("Your Score: "+(snakeLen - 4));
+		//displayText((snakeLen - 4));
 		display();
-		requestAnimFrame(function()
-		{
+		requestAnimFrame(function(){
 		  animate();
 		});
-		}else{
+		/*}else{
 			return;
-		}
+		}*/
 	}
-	else
-	{
-		speak("sorry you lost the game. you scrore is"+(snakeLen - 4));
+	else {
+		if ($("#gameScore").is(":visible")) {
+			speak("sorry you lost the game. you scrore is"+(snakeLen - 4));
+			$("#gameScore").html("sorry you lost the game. Your score: "+(snakeLen - 4));
+		}
 		snakeLen = 4;
-		displayText("sorry you lost the game");
 	}
 	//context.drawImage(aniblock, aniblock_x, aniblock_y); 
 

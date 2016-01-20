@@ -172,32 +172,27 @@ var audioPlayer = {
     }
   },
   switchingTabs:function(cmd) {
+    if (cmd !== "start"){
+      getDetails(cmd);
+    }
 	  window.voiceDuration = 250;
-	  window.game_over = false;
-	   $(".toggle").hide();
+	  window.game_over = true;
 	   this.videoActions("pause");
-	  if(cmd === "audio"){
-	  $("#audioPanel").show();
-	  }
-	  else if(cmd === "home"){
+	  if(cmd === "home"){
 		 this.switchigToNonaudio();
-	    $("#homePanel").show();
 	  }
 	  else if(cmd === "video"){
 		 this.switchigToNonaudio();
-	    $("#videoPanel").show();
 	  }
 	  else if(cmd === "feedback"){
-		  window.voiceDuration = 250;
+		  window.voiceDuration = 500;
 		 this.switchigToNonaudio();
-		$("#contactusPanel").show();
 	  }
 	  else if(cmd === "game" || cmd === "start"){
-		  if(cmd == "start" && !$("#myCanvas").is(":visible")){
+		  /*if(cmd == "start" && !$("#myCanvas").is(":visible")){
 			  return;
-		  }
+		  }*/
 		this.switchigToNonaudio();
-		$("#gamePanel").show();
 		create_snake();
 		create_food();
 		window.game_over = false;
@@ -264,24 +259,24 @@ var audioPlayer = {
   },
   suggestion : function(value){
 	  suggestionText = suggestionText+" "+value;
-    $('#contactusPanel textarea').val(suggestionText);
+    $('#feedbackPanel textarea').val(suggestionText);
   },
   resetRating : function(){
-    if($("#contactusPanel").is(":visible")){
+    if($("#feedbackPanel").is(":visible")){
       $(".clear-rating").click();
     }
   },
   feedbackSubmit: function(){
-    if($("#contactusPanel").is(":visible")){
+    if($("#feedbackPanel").is(":visible")){
 		var that = this;
       db.transaction(function (tx) {
         var ratingVal = $('#feedback-rating').val(),
-            descriptionVal = $('#contactusPanel textarea').val();
+            descriptionVal = $('#feedbackPanel textarea').val();
             if(ratingVal){
               tx.executeSql('INSERT INTO feedback (rating, description) VALUES (?, ?)',[ratingVal,descriptionVal]);
               $("#feedback-table tbody").prepend("<tr><td>"+ratingVal+"</td><td>"+descriptionVal+"</td></tr>");
             }
-         $('#contactusPanel textarea').val("");
+         $('#feedbackPanel textarea').val("");
 		 that.resetRating();
 		 speak("thanks for you feed back");
            // msg = '<p>Log message created and row inserted.</p>';
@@ -305,7 +300,7 @@ var audioPlayer = {
       this.searchSpecificSong(playSpecific[1]);
       return;
     }
-    if($("#contactusPanel").is(":visible")){
+    if($("#feedbackPanel").is(":visible")){
       //var ratingSpecific = cmd.match(/^\d*(.+)$/),
 	  var ratingSpecific = cmd.split(" "),
           suggestionSpecific = cmd.match(/message\s*(.+)$/);
@@ -344,23 +339,18 @@ var audioPlayer = {
         break;
   	  case "audio":
   		this.switchingTabs("audio");
-      getDetails(cmd);
   		break;
   	  case "home":
   		this.switchingTabs("home");
-      getDetails(cmd);
   		break;
   	  case "video":
   		this.switchingTabs("video");
-      getDetails(cmd);
   		break;
   	  case "feedback":
   		this.switchingTabs("feedback");
-      getDetails(cmd);
   		break;
 	  case "game":
   		this.switchingTabs("game");
-      getDetails(cmd);
   		break;
 	  case "start":
   		this.switchingTabs("start");

@@ -4,9 +4,10 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href="css/star-rating.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
   <script src="js/player.js"></script>
   <script src="js/playlist.js"></script>
@@ -61,7 +62,7 @@
       .row.content {height:auto;} 
     }
     .center { text-align: left; list-style-position:inside;margin-left:-25px;list-style-type: none;}
-    .rightsidepanel{list-style-type: none;text-align: left;line-height:50px;font-size: 14px;margin-left: -30px;}
+    .rightsidepanel{list-style-type: none;text-align: left;font-size: 14px;margin-left: -30px;}
   </style>
 </head>
 <body>
@@ -81,8 +82,8 @@
         <li class='active'><a onclick="getDetails('home')" id="homeMenu" href="#homePanel" class='hometab'>Home</a></li>
         <li><a onclick="getDetails('audio')"  id="audioMenu" href="#audioPanel">Audio</a></li>
         <li><a onclick="getDetails('video')"  id="videoMenu" href="#videoPanel">Video</a></li>
-       <li><a onclick="getDetails('news')"   id="newsMenu" href="#newsPanel">Game</a></li>
-	     <li><a onclick="getDetails('contactus')"   id="contactusMenu"href="#contactusPanel">Feedback</a></li>
+       <li><a onclick="getDetails('game')"   id="gameMenu" href="#gamePanel">Game</a></li>
+	     <li><a onclick="getDetails('feedback')"   id="feedbackMenu"href="#feedbackPanel">Feedback</a></li>
        <li style="color:#FFF;padding-top:15px;padding-left:100px;">You Spoke : <span class="l-command"></span></li>
       </ul>
 
@@ -98,9 +99,7 @@
   <div class="row content">
     <div class="col-sm-2 sidenav" id="testrun">
        <div id="homeSidePanel" class="sidetoggle">
-        <h4>ABOUT</h4>
-         <p style="text-align:left;">Bye Bye to Keyboard and mouse
-Welcome to new web voice power where you can play audio/video and play a game too just by speaking to your system. So why waiting start giving commands to your system.</p>
+         <p style="text-align:left;">Welcome to Voice Powered web.</p>
       </div>
       <div id="audioSidePanel" class="sidetoggle">
         <h4>Available commands</h4>
@@ -121,26 +120,25 @@ Welcome to new web voice power where you can play audio/video and play a game to
           <li><b> Pause</b> - Pauses the video</li>
         </ul>
       </div>
-      <div id="newsSidePanel" class="sidetoggle">
+      <div id="gameSidePanel" class="sidetoggle">
         <h4>Available commands</h4>
           <ul class='center'>
             <li><b>Start</b> - Starts the Game</li>
-            <li><b> Stop</b> - Stops the Game</li>
-            <li><b> Up</b> - Move up</li>
+            <li><b>Up</b> - Move up</li>
             <li><b>Down</b> - Move down</li>
             <li><b>Left</b> - Move left</li>
             <li><b>Right</b> - Move right</li>
         </ul>
       </div>
 
-        <div id="contactusSidePanel" class="sidetoggle">
+        <div id="feedbackSidePanel" class="sidetoggle">
         <h4>Available commands</h4>
           <ul class='center'>
             <li><b>no. star</b> - Eg: 4 star </li>
-            <li><b> Message</b> - followed by your message</li>
+            <li><b>Message</b> - followed by your message</li>
+            <li><b>Submit</b> - to submit your feedback</li>
         </ul>
       </div>
-
     </div>
     <div class="col-sm-8 text-left"> 
       <center><h1 class="head">Voice powered web application</h1>
@@ -161,7 +159,7 @@ Welcome to new web voice power where you can play audio/video and play a game to
           </video>
         </center>
 	  </div>
-      <div id="contactusPanel" class="toggle">
+      <div id="feedbackPanel" class="toggle">
         <div class="container" >
 
             <form class="well form-horizontal bv-form" action=" " method="post" id="contact_form" novalidate="novalidate">
@@ -198,16 +196,8 @@ Welcome to new web voice power where you can play audio/video and play a game to
         </table>
       </div>
       <div id="gamePanel" class="toggle">
-        <!--<h1>
-          <iframe src="http://feeds.feedburner.com/NdtvNews-TopStories" style = 'width:860px;height:900px;'></iframe>
-
-        </h1>-->
+      <div id="gameScore">Your Score: 0</div>
 		<canvas id="myCanvas" width="640" height="640" style="border:1px solid #000000;"></canvas>
-		<script>
-		  var canvas = document.getElementById('myCanvas');
-		  var context = canvas.getContext('2d');
-		</script>
-		<script src="js/snake_core.js"></script>
       </div>
     </div>
     <div class="col-sm-2 sidenav">
@@ -229,7 +219,11 @@ $('.toggle').hide();
  $(".sidetoggle").hide();
 getDetails('home');
 function getDetails(key) {
+  console.log("Calling get Details...."+key);
   var dis = document.getElementById(key+"Menu");
+  console.log(dis);
+  $('.nav.navbar-nav > li').removeClass('active');
+    $(dis).parent().addClass('active');
   $(".toggle").hide();
     var toShow = $(dis).attr('href');
     $(toShow).show();
@@ -238,8 +232,6 @@ function getDetails(key) {
   
 }
 </script>
-<script src="http://plugins.krajee.com/assets/4696769/js/star-rating.min.js"></script>
-<link href="http://plugins.krajee.com/assets/4696769/css/star-rating.min.css" rel="stylesheet">
 <script type="text/javascript">
 if (window.openDatabase) {
   var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
@@ -261,17 +253,14 @@ function updateSuggestions(transaction, results){
   }
 }
 
-$('.nav.navbar-nav > li').on('click', function(e) {
-    $('.nav.navbar-nav > li').removeClass('active');
-    $(this).addClass('active');
-});  
-
   $( document ).ready(function() {
         document.getElementById("homePanel").style.display = "block";
     });
 
 
 </script>
+<script src="js/star-rating.min.js"></script>
+<script src="js/snake_core.js"></script>
 </body>
 </html>
 

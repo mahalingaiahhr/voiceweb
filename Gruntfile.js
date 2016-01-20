@@ -5,7 +5,8 @@ module.exports = function(grunt) {
     connect:{
       server:{
         options: {
-          port: 80,
+          protocol: 'https',
+          port: 443,
           keepalive: true,
           open:{
             target: 'http://localhost:<%= connect.server.options.port %>', // target url to open
@@ -16,7 +17,6 @@ module.exports = function(grunt) {
     },
 
   });
-
  
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.registerTask('default', ['connect']);
