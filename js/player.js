@@ -1,4 +1,4 @@
-var AppCommands = ["play","stop","previous","pause","next","home","game","feedback","audio","video","suggestion","up","down","left","right","start","submit"];
+var AppCommands = ["play","stop","previous","pause","next","home","game","feedback","audio","video","message","up","down","left","right","start","submit"];
 window.voiceDuration = 250;
 var suggestionText = "";
 var audioPlayer = {
@@ -308,12 +308,12 @@ var audioPlayer = {
     if($("#contactusPanel").is(":visible")){
       //var ratingSpecific = cmd.match(/^\d*(.+)$/),
 	  var ratingSpecific = cmd.split(" "),
-          suggestionSpecific = cmd.match(/suggestion\s*(.+)$/);
+          suggestionSpecific = cmd.match(/message\s*(.+)$/);
       if (ratingSpecific && (ratingSpecific[1] === "star")) {
         this.rating(ratingSpecific[0]);
         return;
       }
-	  if(cmd == "suggestion"){
+	  if(cmd == "message"){
 		  $(".form-control").focus();
 	  }
       if (suggestionSpecific) {
