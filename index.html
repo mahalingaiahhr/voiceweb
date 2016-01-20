@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/playlist.js"></script>
+  <style>
+
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 590px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #eedbc3;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    .head{
+      font-size: 30px;
+      font-color:#5d5d5d;
+    }
+    #mp3Panel:active{
+      color: red;
+    }
+    
+    #contactusPanel .container {
+      width: 100%;
+    }
+    #contactusPanel .rating-md {
+      font-size: 2.13em;
+    }
+    #contactusPanel textarea{
+      width:300px;
+      height:200px;
+     }
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#"><img src="images/logo.jpg"  style="width:40px;height:35px;margin-top:-7px;"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a onclick="getDetails(this)" href="#">Home</a></li>
+        <li><a onclick="getDetails(this)" href="#mp3Panel">Audio</a></li>
+        <li><a onclick="getDetails(this)" href="#videoPanel">Video</a></li>
+       <li><a onclick="getDetails(this)" href="#newsPanel">Game</a></li>
+	   <li><a onclick="getDetails(this)" href="#contactusPanel">Feedback</a></li>
+      </ul>
+      <input type="text" name="names" autofocus placeholder="Search"style="margin-left:700px;margin-top:12px;border-radius:5px;">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+    <div id="content1" class="toggle" style="display:none">show the stuff1</div> 
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav" id="testrun">
+    <i class="fa fa-volume-up"></i>
+      <p><a href="#">Open Audio</a></p>
+      <p><a href="#">Open Video</a></p>
+      <p><a href="http://www.gmail.com" target="_blank">Open E-Mail</a></p>
+      <p><a href="#"></a></p>
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h1 class="head">VOICE WEB WELCOMES YOU</h1>
+      <p>This is a listening site...</p>
+	  <p>Last command: <span class="l-command"></span></p> 
+	  <p> Status : <span class="2-command"></span></p>
+      <hr>
+      <div id="audioPanel" class="toggle"><h1>mp3Panel</h1></div>
+      <div id="videoPanel" class="toggle">
+		<center>
+          <video id="videoTag" width="600" height="400" controls>
+            <source src="nature.mp4" type="video/mp4">
+             Your browser does not support the video tag.
+          </video>
+        </center>
+	  </div>
+      <div id="contactusPanel" class="toggle">
+        <div class="container" >
+
+            <form class="well form-horizontal bv-form" action=" " method="post" id="contact_form" novalidate="novalidate">
+                  <fieldset>
+                  <!-- Form Name -->
+                    <legend>Feedback</legend>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Rating</label>
+                        <div class="col-sm-10">
+                          <input id="feedback-rating" class="rating" data-min="0" data-max="5" data-step="0.1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <label class="col-sm-2 control-label">Suggestion</label>
+                      <div class="col-sm-10 inputGroupContainer">
+                          <div class="input-group">
+                                <textarea class="form-control" name="comment" placeholder="Start speaking" ></textarea>
+                          </div>
+                      </div>
+                    </div>
+                </fieldset>
+            </form>
+          </div>
+          <table id="feedback-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                      <th>Rating</th>
+                      <th>Suggestion</th>
+                  </tr>
+              </thead>
+              <tbody>
+              </tbody>
+        </table>
+      </div>
+      <div id="gamePanel" class="toggle">
+        <!--<h1>
+          <iframe src="http://feeds.feedburner.com/NdtvNews-TopStories" style = 'width:860px;height:900px;'></iframe>
+
+        </h1>-->
+		<canvas id="myCanvas" width="640" height="640" style="border:1px solid #000000;"></canvas>
+		<script>
+		  var canvas = document.getElementById('myCanvas');
+		  var context = canvas.getContext('2d');
+		</script>
+		<script src="js/snake_core.js"></script>
+      </div>
+    </div>
+    <div class="col-sm-2 sidenav">
+      </div>
+  </div>
+</div>
+<script type="text/javascript">
+$('.toggle').hide();
+function getDetails(dis) {
+  console.log(dis);
+  $(".toggle").hide();
+    var toShow = $(dis).attr('href');
+    $(toShow).show();
+  
+}
+</script>
+<script src="http://plugins.krajee.com/assets/4696769/js/star-rating.min.js"></script>
+<link href="http://plugins.krajee.com/assets/4696769/css/star-rating.min.css" rel="stylesheet">
+<script type="text/javascript">
+if (window.openDatabase) {
+  var db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+  db.transaction(function (t) {
+        t.executeSql("CREATE TABLE IF NOT EXISTS feedback (rating TEXT, description TEXT)");
+        t.executeSql("SELECT * FROM feedback", [], updateSuggestions);
+      });
+} else {
+    alert("WebSQL is not supported by your browser!");
+}
+function updateSuggestions(transaction, results){
+  if(results){
+    for (i = 0; i < results.rows.length; i++) {
+        //Get the current row
+        var row = results.rows.item(i);
+        $("#feedback-table tbody").append("<tr><td>"+row.rating+"</td><td>"+row.description+"</td></tr>");
+        
+    }
+  }
+}
+</script>
+</body>
+</html>
+
