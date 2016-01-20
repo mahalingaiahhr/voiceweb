@@ -15,11 +15,11 @@ var audioPlayer = {
         "<li class='list-group-item'>" + val.singer + " - " + val.songName
       );
     })
-    $("#testrun").empty();
-    var commands = ["Play","Stop","Pause","Next","Previous"];
+    
+    /*var commands = ["Play","Stop","Pause","Next","Previous"];
    for(var i=0;i<commands.length;i++) {
     $("#testrun").append("<p>"+commands[i]+"</p>");
-    }
+    }*/
   },
   changeCurrentSongEffect: function(options) {
     if (options.play) {
