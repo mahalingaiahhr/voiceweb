@@ -301,8 +301,18 @@ var audioPlayer = {
       //var ratingSpecific = cmd.match(/^\d*(.+)$/),
 	  var ratingSpecific = cmd.split(" "),
           suggestionSpecific = cmd.match(/message\s*(.+)$/);
-      if (ratingSpecific && (ratingSpecific[1] === "star")) {
+     /* if (ratingSpecific && (ratingSpecific[1] === "star")) {
         this.rating(ratingSpecific[0]);
+        return;
+      }*/
+
+      try {
+        var num = parseInt(cmd);
+
+      }catch(e){}
+
+      if (num > 0) {
+        this.rating(num);
         return;
       }
 	  if(cmd == "message"){
